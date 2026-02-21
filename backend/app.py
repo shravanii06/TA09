@@ -9,26 +9,46 @@ app = Flask(__name__)
 def home():
     return "Resilience-Net Backend is Running."
 
-@app.route('/risk_score', methods=['POST'])
+@app.route('/risk_score', methods=['GET', 'POST'])
 def risk_score():
     try:
-        data = request.get_json()
+        if request.method == 'POST':
+            data = request.get_json()
+            if not data:
+                return jsonify({'error': 'No JSON data provided'}), 400
+
+            temp = data.get('temperature')
+            rainfall = data.get('rainfall')
+            aqi = data.get('aqi')
+            humidity = data.get('humidity')
+
+        else: 
+            temp = request.args.get('temperature')
+            rainfall = request.args.get('rainfall')
+            aqi = request.args.get('aqi')
+            humidity = request.args.get('humidity')
+
         
-        if not all(k in data for k in ('temperature', 'rainfall', 'aqi', 'humidity')):
+        if not all([temp, rainfall, aqi, humidity]):
             return jsonify({'error': 'Missing required parameters'}), 400
-        temp = data['temperature']
-        rainfall = data['rainfall']
-        aqi = data['aqi']
-        humidity = data['humidity']
-        
+        temp = float(temp)
+        rainfall = float(rainfall)
+        aqi = float(aqi)
+        humidity = float(humidity)
+
         score = calculate_risk_score(temp, rainfall, aqi, humidity)
         disease = predict_disease(temp, rainfall, aqi, humidity)
         funding = recommend_funding(temp, rainfall, aqi, humidity)
-        return jsonify({'risk_score': score
-                        , 'predicted_disease': disease
-                        , 'funding_recommendation': funding})
+
+        return jsonify({
+            'risk_score': score,
+            'predicted_disease': disease,
+            'funding_recommendation': funding
+        })
+
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+
 
 if __name__ == '__main__':
     app.run(debug=True)
