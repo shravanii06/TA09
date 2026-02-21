@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResilienceNet Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="nav">
+    <h2>ResilienceNet</h2>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Predict</a>
+        <a href="#">Alerts</a>
+    </nav>
+</header>
+
+<!-- HERO CLIMATE BAR -->
+<section class="hero">
+    <h2>Live Climate Monitor</h2>
+    <div class="climate-cards">
+        <div class="card">🌡 Temp <b>34°C</b></div>
+        <div class="card">🌧 Rain <b>176mm</b></div>
+        <div class="card">🌫 AQI <b>190</b></div>
+        <div class="card">💧 Humidity <b>70%</b></div>
+    </div>
+</section>
+
+<!-- HEATMAP -->
+<section class="panel">
+    <h3>Regional Disease Risk Heatmap</h3>
+    <div class="grid" id="heatmap"></div>
+</section>
+
+<!-- ALERTS -->
+<section class="panel">
+    <h3>Climate & Disease Alerts</h3>
+    <div id="alerts"></div>
+</section>
+
+<!-- CLINIC PANEL -->
+<section class="panel">
+    <h3>Clinic Preparation Panel</h3>
+    <p><b>Funding:</b> Micro-fund Released</p>
+    <ul>
+        <li>ORS</li>
+        <li>Paracetamol</li>
+        <li>IV Fluids</li>
+    </ul>
+</section>
+
+<!-- SYMPTOM FORM -->
+<section class="panel">
+    <h3>Report Symptoms</h3>
+    <form id="form">
+        <input placeholder="Fever">
+        <input placeholder="Cough">
+        <input placeholder="Breathing issue">
+        <button type="submit">Submit</button>
+    </form>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
